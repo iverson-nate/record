@@ -1,13 +1,35 @@
 #!/bin/bash
 
-res=$(xrandr | grep \* | cut -d' ' -f 4)
-
 if [ $# -eq 1 ]
 then
+CARDS=$(cat /proc/asound/cards |  grep '\[*\]'  | cut -f 2 -d'[' | cut -f 1 -d']')
+echo "***** SOUND CARD SELECTION *****"
+cat /proc/asound/cards
+select card in $CARDS;do
+ if [[ -n $card ]]; then
+        CARD="hw:"$card
+	break
+    else
+        print 'invalid.'
+    fi
+done
+echo $CARD
+echo "***** VIDEO CARD SELECTION *****"
+resolutions=$(xrandr | grep \* | cut -d' ' -f 4)
+xrandr | grep connected
+select r in $resolutions;do
+ if [[ -n $r ]]; then
+        res=$r
+        break
+    else
+        print 'invalid.'
+    fi
+done
+
+
 OUT=$1
     for i in 5 4 3 2 1; do echo $i; sleep 1; done;echo "Press [q] to quit";
-    ffmpeg  -f x11grab -s $res -i :0.0 -f alsa -ac 1 -i hw:Device  -strict experimental $OUT
-    %ffmpeg -loglevel panic -f x11grab -s $res -i :0.0 -f alsa -ac 1 -i hw:Device -r 60 $OUT
+    ffmpeg  -loglevel panic -f x11grab -s $res -i :0.0 -f alsa -ac 1 -i $CARD  $OUT
 else
     echo "Incorrect Syntax"
     echo "record.sh filename"
