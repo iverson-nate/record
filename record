@@ -4,7 +4,7 @@ if [ $# -eq 1 ]
 then
 CARDS=$(cat /proc/asound/cards |  grep '\[*\]'  | cut -f 2 -d'[' | cut -f 1 -d']')
 echo "***** SOUND CARD SELECTION *****"
-cat /proc/asound/cards
+cat /proc/asound/cards | cut -f 3- -d' '
 select card in $CARDS;do
  if [[ -n $card ]]; then
         CARD="hw:"$card
@@ -15,8 +15,8 @@ select card in $CARDS;do
 done
 echo $CARD
 echo "***** VIDEO CARD SELECTION *****"
-resolutions=$(xrandr | grep \* | cut -d' ' -f 4)
-xrandr | grep connected
+resolutions=$(xrandr | grep connected | grep -v disconnected | cut -f 1 -d' ')
+xrandr | grep connected| grep -v disconnected
 select r in $resolutions;do
  if [[ -n $r ]]; then
         res=$r
