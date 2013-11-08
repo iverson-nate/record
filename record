@@ -13,23 +13,26 @@ select card in $CARDS;do
         print 'invalid.'
     fi
 done
-echo $CARD
+
 echo "***** VIDEO CARD SELECTION *****"
-resolutions=$(xrandr | grep connected | grep -v disconnected | cut -f 1 -d' ')
-xrandr | grep connected| grep -v disconnected
-select r in $resolutions;do
+displays=$(xrandr | grep connected | grep -v disconnected | cut -f 1 -d' ')
+xrandr | grep connected| grep -v disconnected| cut -f 1 -d'('
+select r in $displays;do
  if [[ -n $r ]]; then
-        res=$r
+        resolution=$(xrandr | grep $r |cut -f 1 -d'+' | awk '{print $NF}')
+        xoff=$(xrandr | grep $r |cut -f 2 -d'+')
+	yoff=$(xrandr | grep $r |cut -f 3 -d'+' | cut -f 1 -d' ')
+	res=$resolution
         break
     else
         print 'invalid.'
     fi
 done
 
-
 OUT=$1
     for i in 5 4 3 2 1; do echo $i; sleep 1; done;echo "Press [q] to quit";
-    ffmpeg  -loglevel panic -f x11grab -s $res -i :0.0 -pix_fmt yuv420p -f alsa -ac 1 -i $CARD  $OUT
+    ffmpeg  -loglevel panic -f x11grab -s $res -i :0.0 -f alsa -ac 1 -i $CARD  -pix_fmt yuv420p $OUT
+#    ffmpeg   -f x11grab -s $res -i :0.0 -f alsa -ac 1 -i $CARD  -pix_fmt yuv420p $OUT
 else
     echo "Incorrect Syntax"
     echo "record.sh filename"
