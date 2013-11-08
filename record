@@ -29,7 +29,7 @@ done
 
 OUT=$1
     for i in 5 4 3 2 1; do echo $i; sleep 1; done;echo "Press [q] to quit";
-    ffmpeg  -loglevel panic -f x11grab -s $res -i :0.0 -pix_fmt yuv422p -f alsa -ac 1 -i $CARD  $OUT
+    ffmpeg  -loglevel panic -f x11grab -s $res -i :0.0 -pix_fmt yuv420p -f alsa -ac 1 -i $CARD  $OUT
 else
     echo "Incorrect Syntax"
     echo "record.sh filename"
