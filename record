@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export PATH=$HOME/bin:$PATH
 if [ $# -eq 1 ]; then
 displays=$(xrandr | grep connected | grep -v disconnected | cut -f 1 -d' ')
 if [ `echo $VAR | wc -w` -gt 1 ]; then
