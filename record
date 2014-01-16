@@ -1,8 +1,9 @@
 #!/bin/bash
 
 if [ $# -eq 1 ]; then
-echo "***** VIDEO CARD SELECTION *****"
 displays=$(xrandr | grep connected | grep -v disconnected | cut -f 1 -d' ')
+if [ `echo $VAR | wc -w` -gt 1 ]; then
+echo "***** DISPLAY SELECTION *****"
 xrandr | grep connected| grep -v disconnected| cut -f 1 -d'('
 select r in $displays;do
  if [[ -n $r ]]; then
@@ -15,7 +16,19 @@ select r in $displays;do
         print 'invalid.'
     fi
 done
-
+else
+for r in $displays;do
+ if [[ -n $r ]]; then
+        resolution=$(xrandr | grep $r |cut -f 1 -d'+' | awk '{print $NF}')
+        xoff=$(xrandr | grep $r |cut -f 2 -d'+')
+        yoff=$(xrandr | grep $r |cut -f 3 -d'+' | cut -f 1 -d' ')
+        res=$resolution
+        break
+    else
+        print 'invalid.'
+    fi
+done
+fi
 OUT=$1
     for i in 5 4 3 2 1; do echo $i; sleep 1; done;echo "Press [q] to quit";
     ffmpeg  -loglevel panic -f x11grab -s $res -i :0.0+$xoff+$yoff -f pulse -i default  -pix_fmt yuv420p $OUT
