@@ -1,0 +1,19 @@
+record
+
+Bash script to record desktop on linux x11 system using ffmpeg. ffmpeg must
+be compiled with x11-grab, libpulse, x264 and any other goodies you want.
+
+I followed the ffmpeg Ubuntu Compilation Guide:
+
+https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
+
+with the following configure options:
+
+./configure --prefix="$HOME/ffmpeg_build" --extra-cflags="-I$HOME/ffmpeg_build/include" \
+   --extra-ldflags="-L$HOME/ffmpeg_build/lib" --bindir="$HOME/bin" --extra-libs="-ldl" --enable-gpl \
+   --enable-libass --enable-libfdk-aac --enable-libfreetype --enable-libmp3lame --enable-libopus \
+   --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-nonfree --enable-x11grab \ 
+   --enable-libpulse
+
+Pulse audio will allow you to use a variety of devices including bluetooth headsets 
+as your audio input. You will need to set your microphone to the default in audio settings window.
