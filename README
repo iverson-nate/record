@@ -15,5 +15,24 @@ with the following configure options:
    --enable-libtheora --enable-libvorbis --enable-libvpx --enable-libx264 --enable-nonfree --enable-x11grab \ 
    --enable-libpulse
 
-Pulse audio will allow you to use a variety of devices including bluetooth headsets 
-as your audio input. You will need to set your microphone to the default in audio settings window.
+Pulse audio will allow you to use a variety of devices including bluetooth 
+headsets as your audio input. You will need to set your microphone to the 
+default in audio settings window.
+
+Usage
+record file.mp4 
+
+Copyright (C) 2014  Nate Iverson                                           
+This program is free software: you can redistribute it and/or modify       
+it under the terms of the GNU General Public License as published by       
+the Free Software Foundation, either version 3 of the License, or          
+(at your option) any later version.                                        
+                                                                               
+    This program is distributed in the hope that it will be useful,            
+    but WITHOUT ANY WARRANTY; without even the implied warranty of             
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              
+    GNU General Public License for more details.                               
+                                                                               
+                                                                               
+    You should have received a copy of the GNU General Public License          
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.  
