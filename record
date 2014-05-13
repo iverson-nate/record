@@ -1,4 +1,26 @@
 #!/bin/bash
+#    record file.mp4 (grabs mp4 from linux screen using ffmpeg and libpulse)
+#    Copyright (C) 2014  Nate Iverson
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#    A custom compiled install of ffmpeg is recommended. Add --enable-pulse 
+#    to configure command line. For details see 
+#
+#    https://trac.ffmpeg.org/wiki/UbuntuCompilationGuide
+
 export PATH=$HOME/bin:$PATH
 if [ $# -eq 1 ]; then
 displays=$(xrandr | grep connected | grep -v disconnected | cut -f 1 -d' ')
